@@ -1,0 +1,41 @@
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.name }}
+  labels:
+    app: {{ .Values.labelsAPP }}
+
+spec:
+  replicas: {{ .Values.replicas }}
+  strategy:
+    type: {{ .Values.deploymentType }}
+    rollingUpdate:
+      maxSurge: {{ .Values.maxsurge }}
+      maxUnavailable: {{ .Values.maxUnavailable }}
+  minReadySeconds: {{ .Values.minReadySeconds }}
+  selector:
+    matchLabels:
+      app: {{ .Values.app }}
+      ENV: {{ .Values.ENV }}
+  template:
+    metadata:
+      name: {{ .Values.Tname }}
+      labels:
+        app: {{ .Values.app }}
+        ENV: {{ .Values.ENV }}
+    spec:
+      automountServiceAccountToken: false
+      containers:
+        - name: {{ .Values.Cname }}
+          image: {{ .Values.image }}
+          resources:
+            requests:
+              memory: {{ .Values.Rmemory }}
+              cpu: {{ .Values.Rcpu }}
+            limits:
+              memory: {{ .Values.Lmemory }}
+              cpu: {{ .Values.Lcpu }}
+          ports:
+            - containerPort: {{ .Values.containerPort }}

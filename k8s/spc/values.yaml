@@ -1,0 +1,37 @@
+---
+name: "spc-deployment"
+labelsAPP: "spring-petclinic"
+
+#spec
+replicas: 2
+deploymentType: "RollingUpdate"
+maxsurge: "50%"
+maxUnavailable: "50%"
+minReadySeconds: 60
+
+#Selector matchLabels
+app: "spring-petclinic"
+ENV: "deploy"
+#Template
+Tname: "spc-deployment-pod"
+#containers
+Cname: "spc-deployment-container"
+image: "bhavishtumalapenta/spring-petclinic:345"
+#Resource
+ 
+#Request
+Rmemory: "64Mi"
+Rcpu: "100m"
+
+#Limits
+Lmemory: "300Mi"
+Lcpu: "500m"
+
+#containerPort
+containerPort: "8080"
+
+
+Sname: "spc-svc"
+#spec
+SType: "LoadBalancer"
+SPort: "80"
