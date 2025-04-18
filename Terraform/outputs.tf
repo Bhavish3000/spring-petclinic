@@ -22,3 +22,7 @@ output "cluster_credentials" {
   description = "Command to get the configuration details of te cluster"
   value       = module.AKS_SPC.cluster_credentials
 }
+
+output "grafana_url" {
+  value = module.AKS_SPC.grafana.endpoint
+}
